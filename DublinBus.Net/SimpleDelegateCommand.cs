@@ -1,16 +1,15 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+﻿//-------------------------------------------------------------------------
+// <copyright file="SimpleDelegateCommand.cs" company="Artur Philibin E Silva">
+//     Copyright (c) Artur Philibin E Silva All rights reserved.
+// </copyright>
+//-------------------------------------------------------------------------
 
 namespace DublinBus.Net
 {
+    using System;
+    using System.Windows.Input;
+    using System.Diagnostics.Contracts;
+
     public class SimpleDelegateCommand : ICommand
     {
         private readonly Action<object> executeAction;
@@ -19,8 +18,8 @@ namespace DublinBus.Net
 
         public SimpleDelegateCommand(Action<object> execute, Func<object, bool> canExecute)
         {
-            execute.ThrowIfNull("execute");
-            canExecute.ThrowIfNull("canExecute");
+            Contract.Requires(execute != null);
+            Contract.Requires(canExecute != null);
 
             this.executeAction = execute;
             this.canExecuteFunc = canExecute;
@@ -28,7 +27,7 @@ namespace DublinBus.Net
 
         public SimpleDelegateCommand(Action<object> execute)
         {
-            execute.ThrowIfNull("execute");
+            Contract.Requires(execute != null);
 
             this.executeAction = execute;
             this.canExecuteFunc = _ => true;

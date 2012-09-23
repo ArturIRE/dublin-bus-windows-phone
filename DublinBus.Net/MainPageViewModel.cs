@@ -1,17 +1,18 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.ComponentModel;
+﻿//-------------------------------------------------------------------------
+// <copyright file="MainPageViewModel.cs" company="Artur Philibin E Silva">
+//     Copyright (c) Artur Philibin E Silva All rights reserved.
+// </copyright>
+//-------------------------------------------------------------------------
 
 namespace DublinBus.Net
 {
+    using System;
+    using System.ComponentModel;
+    using System.Net;
+    using System.Windows;
+    using System.Diagnostics.Contracts;
+    using System.Globalization;
+
     public class MainPageViewModel : DependencyObject
     {
         private readonly SimpleDelegateCommand searchAndDownloadData;
@@ -68,7 +69,7 @@ namespace DublinBus.Net
 
         private void SearchAndDownloadDataExecute()
         {
-            var busStopNumber = int.Parse(this.SearchString).ToString().PadLeft(5, '0');
+            var busStopNumber = int.Parse(this.SearchString).ToString(NumberFormatInfo.InvariantInfo).PadLeft(5, '0');
             var wc = new WebClient();
             wc.DownloadStringCompleted += DownloadStringCompleted;
             wc.DownloadStringAsync(new Uri("http://gormcito.com/api.php?n=" + busStopNumber));
@@ -76,14 +77,14 @@ namespace DublinBus.Net
 
         private void DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
-            this.Results = string.Concat(Helpers.ExtractTimes(e.Result));
+            this.Results = string.Concat(Helpers.ExtractBusTimesFromHtml(e.Result));
         }
     
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void RaisePropertyChanged(string propertyName)
         {
-            propertyName.ThrowIfNull(propertyName);
+            Contract.Requires(propertyName != null);
 
             var handler = this.PropertyChanged;
 
