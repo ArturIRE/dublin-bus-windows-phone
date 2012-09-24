@@ -4,11 +4,11 @@
 // </copyright>
 //-------------------------------------------------------------------------
 
-namespace DublinBus.Net
+namespace DublinBusWindowsPhone
 {
     using System;
+    using System.Diagnostics.Contracts;
     using System.Windows.Input;
-    using C = System.Diagnostics.Contracts.Contract;
 
     public class SimpleDelegateCommand : ICommand
     {
@@ -18,8 +18,8 @@ namespace DublinBus.Net
 
         public SimpleDelegateCommand(Action<object> execute, Func<object, bool> canExecute)
         {
-            C.Requires(execute != null);
-            C.Requires(canExecute != null);
+            Contract.Requires(execute != null);
+            Contract.Requires(canExecute != null);
 
             this.executeAction = execute;
             this.canExecuteFunc = canExecute;
@@ -27,7 +27,7 @@ namespace DublinBus.Net
 
         public SimpleDelegateCommand(Action<object> execute)
         {
-            C.Requires(execute != null);
+            Contract.Requires(execute != null);
 
             this.executeAction = execute;
             this.canExecuteFunc = _ => true;

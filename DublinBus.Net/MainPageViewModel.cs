@@ -4,14 +4,14 @@
 // </copyright>
 //-------------------------------------------------------------------------
 
-namespace DublinBus.Net
+namespace DublinBusWindowsPhone
 {
     using System;
     using System.ComponentModel;
+    using System.Diagnostics.Contracts;
     using System.Globalization;
     using System.Net;
     using System.Windows;
-    using C = System.Diagnostics.Contracts.Contract;
 
     public class MainPageViewModel : DependencyObject
     {
@@ -23,19 +23,19 @@ namespace DublinBus.Net
 
         public MainPageViewModel()
         {
-            this.searchAndDownloadData = new SimpleDelegateCommand(_ => SearchAndDownloadDataExecute(), _ => this.SearchAndDownloadDataCanExecute());
+            this.searchAndDownloadData = new SimpleDelegateCommand(_ => this.SearchAndDownloadDataExecute(), _ => this.SearchAndDownloadDataCanExecute());
         }
 
         public string SearchString
         {
             get
             {
-                return (string)GetValue(SearchStringProperty);
+                return (string)this.GetValue(SearchStringProperty);
             }
 
             set
             {
-                SetValue(SearchStringProperty, value);
+                this.SetValue(SearchStringProperty, value);
             }
         }
 
@@ -43,12 +43,12 @@ namespace DublinBus.Net
         {
             get
             {
-                return (string)GetValue(ResultsProperty);
+                return (string)this.GetValue(ResultsProperty);
             }
 
             set
             {
-                SetValue(ResultsProperty, value);
+                this.SetValue(ResultsProperty, value);
             }
         }
 
@@ -56,7 +56,7 @@ namespace DublinBus.Net
         {
             get
             {
-                return searchAndDownloadData;
+                return this.searchAndDownloadData;
             }
         }
 
@@ -71,7 +71,7 @@ namespace DublinBus.Net
         {
             var busStopNumber = int.Parse(this.SearchString).ToString(NumberFormatInfo.InvariantInfo).PadLeft(5, '0');
             var wc = new WebClient();
-            wc.DownloadStringCompleted += DownloadStringCompleted;
+            wc.DownloadStringCompleted += this.DownloadStringCompleted;
             wc.DownloadStringAsync(new Uri("http://gormcito.com/api.php?n=" + busStopNumber));
         }
 
@@ -84,7 +84,7 @@ namespace DublinBus.Net
 
         private void RaisePropertyChanged(string propertyName)
         {
-            C.Requires(propertyName != null);
+            Contract.Requires(propertyName != null);
 
             var handler = this.PropertyChanged;
 

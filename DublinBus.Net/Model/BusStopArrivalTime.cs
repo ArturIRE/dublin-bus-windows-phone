@@ -4,10 +4,10 @@
 // </copyright>
 //-------------------------------------------------------------------------
 
-namespace DublinBus.Net.Model
+namespace DublinBusWindowsPhone.Model
 {
+    using System.Diagnostics.Contracts;
     using System.Text.RegularExpressions;
-    using C = System.Diagnostics.Contracts.Contract;
 
     public class BusStopArrivalTime
     {
@@ -19,9 +19,9 @@ namespace DublinBus.Net.Model
 
         public BusStopArrivalTime(string routeNumber, string finalStopName, int minutesUntilArrival)
         {
-            C.Requires(Regex.IsMatch(routeNumber, "[0-9]+[abcdx]?"));
-            C.Requires(!string.IsNullOrEmpty(finalStopName));
-            C.Requires(minutesUntilArrival > 0);
+            Contract.Requires(Regex.IsMatch(routeNumber, "[0-9]+[abcdx]?"));
+            Contract.Requires(!string.IsNullOrEmpty(finalStopName));
+            Contract.Requires(minutesUntilArrival > 0);
 
             this.routeNumber = routeNumber;
             this.finalStopName = finalStopName;
@@ -32,7 +32,7 @@ namespace DublinBus.Net.Model
         {
             get
             {
-                C.Ensures(Regex.IsMatch(C.Result<string>(), "[0-9]+[abcdx]?"));
+                Contract.Ensures(Regex.IsMatch(Contract.Result<string>(), "[0-9]+[abcdx]?"));
                 return this.routeNumber;
             }
         }
@@ -41,7 +41,7 @@ namespace DublinBus.Net.Model
         {
             get
             {
-                C.Ensures(!string.IsNullOrEmpty(C.Result<string>())); 
+                Contract.Ensures(!string.IsNullOrEmpty(Contract.Result<string>())); 
                 return this.finalStopName;
             }
         }
@@ -50,7 +50,7 @@ namespace DublinBus.Net.Model
         {
             get
             {
-                C.Ensures(C.Result<int>() > 0);
+                Contract.Ensures(Contract.Result<int>() > 0);
                 return this.minutesUntilArrival;
             }
         }

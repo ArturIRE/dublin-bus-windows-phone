@@ -4,10 +4,11 @@
 // </copyright>
 //-------------------------------------------------------------------------
 
-namespace DublinBus.Net
+namespace DublinBusWindowsPhone
 {
     using System.Windows;
     using System.Windows.Navigation;
+
     using Microsoft.Phone.Controls;
     using Microsoft.Phone.Shell;
 

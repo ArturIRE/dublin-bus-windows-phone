@@ -4,7 +4,7 @@
 // </copyright>
 //-------------------------------------------------------------------------
 
-namespace DublinBus.Net
+namespace DublinBusWindowsPhone
 {
     using Microsoft.Phone.Controls;
 

@@ -4,14 +4,15 @@
 // </copyright>
 //-------------------------------------------------------------------------
 
-namespace DublinBus.Net
+namespace DublinBusWindowsPhone
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using DublinBus.Net.Model;
-    using C = System.Diagnostics.Contracts.Contract;
+
+    using DublinBusWindowsPhone.Model;
 
     /// <summary>
     /// Set of static and extension helper functions
@@ -36,7 +37,7 @@ namespace DublinBus.Net
 
         private static BusStopArrivalTime ConvertToPoco(string dashSeperatedValues)
         {
-            C.Ensures(C.Result<BusStopArrivalTime>() != null);
+            Contract.Ensures(Contract.Result<BusStopArrivalTime>() != null);
 
             var values = dashSeperatedValues.Split('-').Select(s => s.Trim()).ToList();
 
