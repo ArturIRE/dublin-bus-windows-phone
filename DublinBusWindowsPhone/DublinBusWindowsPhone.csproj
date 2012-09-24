@@ -20,9 +20,9 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>DublinBus.Net.xap</XapFilename>
+    <XapFilename>DublinBusWindowsPhone.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>DublinBus.Net.App</SilverlightAppEntry>
+    <SilverlightAppEntry>DublinBusWindowsPhone.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
     <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
