@@ -1,34 +1,27 @@
 ﻿//-------------------------------------------------------------------------
-// <copyright file="GlobalSupressions.cs" company="Artur Philibin E Silva">
+// <copyright file="BusStopArrivalTime.cs" company="Artur Philibin E Silva">
 //     Copyright (c) Artur Philibin E Silva All rights reserved.
 // </copyright>
 //-------------------------------------------------------------------------
 
 namespace DublinBus.Net.Model
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Diagnostics.Contracts;
     using System.Text.RegularExpressions;
+    using C = System.Diagnostics.Contracts.Contract;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class BusStopArrivalTime
     {
         private readonly string routeNumber;
 
         private readonly string finalStopName;
 
-        public readonly int minutesUntilArrival;
+        private readonly int minutesUntilArrival;
 
         public BusStopArrivalTime(string routeNumber, string finalStopName, int minutesUntilArrival)
         {
-            Contract.Requires(Regex.IsMatch(routeNumber, "[0-9]+[abcdx]?"));
-            Contract.Requires(!string.IsNullOrEmpty(finalStopName));
-            Contract.Requires(minutesUntilArrival > 0);
+            C.Requires(Regex.IsMatch(routeNumber, "[0-9]+[abcdx]?"));
+            C.Requires(!string.IsNullOrEmpty(finalStopName));
+            C.Requires(minutesUntilArrival > 0);
 
             this.routeNumber = routeNumber;
             this.finalStopName = finalStopName;
@@ -39,6 +32,7 @@ namespace DublinBus.Net.Model
         {
             get
             {
+                C.Ensures(Regex.IsMatch(C.Result<string>(), "[0-9]+[abcdx]?"));
                 return this.routeNumber;
             }
         }
@@ -47,6 +41,7 @@ namespace DublinBus.Net.Model
         {
             get
             {
+                C.Ensures(!string.IsNullOrEmpty(C.Result<string>())); 
                 return this.finalStopName;
             }
         }
@@ -55,6 +50,7 @@ namespace DublinBus.Net.Model
         {
             get
             {
+                C.Ensures(C.Result<int>() > 0);
                 return this.minutesUntilArrival;
             }
         }

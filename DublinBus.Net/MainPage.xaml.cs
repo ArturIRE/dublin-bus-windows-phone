@@ -10,10 +10,12 @@ namespace DublinBus.Net
 
     public partial class MainPage : PhoneApplicationPage
     {
-        // Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainPage"/> class
+        /// </summary>
         public MainPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

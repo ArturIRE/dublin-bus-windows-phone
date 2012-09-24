@@ -1,6 +1,6 @@
 ﻿//-------------------------------------------------------------------------
 // <copyright file="App.xaml.cs" company="Artur Philibin E Silva">
-//     Copyright (c) Artur Philibin E Silva All rights reserved.
+// Copyright (c) Artur Philibin E Silva, All rights reserved.
 // </copyright>
 //-------------------------------------------------------------------------
 
@@ -14,13 +14,7 @@ namespace DublinBus.Net
     public partial class App : Application
     {
         /// <summary>
-        /// Provides easy access to the root frame of the Phone Application.
-        /// </summary>
-        /// <returns>The root frame of the Phone Application.</returns>
-        public PhoneApplicationFrame RootFrame { get; private set; }
-
-        /// <summary>
-        /// Constructor for the Application object.
+        /// Initializes a new instance of the <see cref="App"/> class
         /// </summary>
         public App()
         {
@@ -54,6 +48,12 @@ namespace DublinBus.Net
             }
 
         }
+
+        /// <summary>
+        /// Gets access to the root frame of the Phone Application.
+        /// </summary>
+        /// <returns>The root frame of the Phone Application.</returns>
+        public PhoneApplicationFrame RootFrame { get; private set; }
 
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated

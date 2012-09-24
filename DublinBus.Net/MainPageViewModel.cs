@@ -8,10 +8,10 @@ namespace DublinBus.Net
 {
     using System;
     using System.ComponentModel;
+    using System.Globalization;
     using System.Net;
     using System.Windows;
-    using System.Diagnostics.Contracts;
-    using System.Globalization;
+    using C = System.Diagnostics.Contracts.Contract;
 
     public class MainPageViewModel : DependencyObject
     {
@@ -84,7 +84,7 @@ namespace DublinBus.Net
 
         private void RaisePropertyChanged(string propertyName)
         {
-            Contract.Requires(propertyName != null);
+            C.Requires(propertyName != null);
 
             var handler = this.PropertyChanged;
 

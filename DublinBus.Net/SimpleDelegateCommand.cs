@@ -8,7 +8,7 @@ namespace DublinBus.Net
 {
     using System;
     using System.Windows.Input;
-    using System.Diagnostics.Contracts;
+    using C = System.Diagnostics.Contracts.Contract;
 
     public class SimpleDelegateCommand : ICommand
     {
@@ -18,8 +18,8 @@ namespace DublinBus.Net
 
         public SimpleDelegateCommand(Action<object> execute, Func<object, bool> canExecute)
         {
-            Contract.Requires(execute != null);
-            Contract.Requires(canExecute != null);
+            C.Requires(execute != null);
+            C.Requires(canExecute != null);
 
             this.executeAction = execute;
             this.canExecuteFunc = canExecute;
@@ -27,7 +27,7 @@ namespace DublinBus.Net
 
         public SimpleDelegateCommand(Action<object> execute)
         {
-            Contract.Requires(execute != null);
+            C.Requires(execute != null);
 
             this.executeAction = execute;
             this.canExecuteFunc = _ => true;
