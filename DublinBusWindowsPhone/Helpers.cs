@@ -13,6 +13,7 @@ namespace DublinBusWindowsPhone
     using System.Text.RegularExpressions;
 
     using DublinBusWindowsPhone.Model;
+    using System.Globalization;
 
     /// <summary>
     /// Set of static and extension helper functions
@@ -49,7 +50,7 @@ namespace DublinBusWindowsPhone
 
             string routeNumber = values[0];
             string finalStopName = values[1];
-            int minutesUntilArrival = int.Parse(values[2]);
+            int minutesUntilArrival = int.Parse(values[2], CultureInfo.InvariantCulture);
 
             return new BusStopArrivalTime(routeNumber, finalStopName, minutesUntilArrival);
         }
