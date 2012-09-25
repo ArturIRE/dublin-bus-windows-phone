@@ -71,15 +71,18 @@ namespace DublinBusWindowsPhone
         {
             var busStopNumber = int.Parse(this.SearchString).ToString(NumberFormatInfo.InvariantInfo).PadLeft(5, '0');
             var wc = new WebClient();
-            wc.DownloadStringCompleted += this.DownloadStringCompleted;
-            wc.DownloadStringAsync(new Uri("http://gormcito.com/api.php?n=" + busStopNumber));
+            wc.Headers[HttpRequestHeader.ContentType] = "text/xml";
+            wc.UploadStringCompleted += this.WcOnUploadStringCompleted;
+            wc.UploadStringAsync(new Uri("http://webservice.dublinbus.biznetservers.com/DublinBusRTPIService.asmx?op=GetRealTimeStopData"), this.post);
         }
 
-        private void DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        private void WcOnUploadStringCompleted(object sender, UploadStringCompletedEventArgs uploadStringCompletedEventArgs)
         {
-            this.Results = string.Concat(Helpers.ExtractBusTimesFromHtml(e.Result));
+            throw new NotImplementedException();
         }
-    
+
+        private string post = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><GetRealTimeStopData xmlns=\"http://dublinbus.ie/\"><stopId>1377</stopId><forceRefresh>false</forceRefresh></GetRealTimeStopData></soap:Body></soap:Envelope>";
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void RaisePropertyChanged(string propertyName)
