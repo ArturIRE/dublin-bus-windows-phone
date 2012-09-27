@@ -6,10 +6,14 @@
   </GlobalSettings>
   <Analyzers>
     <Analyzer AnalyzerId="StyleCop.CSharp.DocumentationRules">
-      <AnalyzerSettings>
-        <StringProperty Name="CompanyName">Artur Philibin E Silva</StringProperty>
-        <StringProperty Name="Copyright">Artur Philibin E Silva</StringProperty>
-      </AnalyzerSettings>
+      <Rules>
+        <Rule Name="FileHeaderMustHaveValidCompanyText">
+          <RuleSettings>
+            <BooleanProperty Name="Enabled">False</BooleanProperty>
+          </RuleSettings>
+        </Rule>
+      </Rules>
+      <AnalyzerSettings />
     </Analyzer>
   </Analyzers>
 </StyleCopSettings>

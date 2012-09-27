@@ -1,10 +1,13 @@
-
+//-------------------------------------------------------------------------
+// <copyright file="DublinBusWebServiceClient.cs">
+//     Copyright (c) Artur Philibin E Silva All rights reserved.
+// </copyright>
+//-------------------------------------------------------------------------
 
 namespace DublinBusWindowsPhone.WebService
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Net;
     using System.Xml.Linq;
     using DublinBusWindowsPhone.Model;

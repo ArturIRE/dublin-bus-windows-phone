@@ -1,5 +1,5 @@
 ﻿//-------------------------------------------------------------------------
-// <copyright file="GlobalSupressions.cs" company="Artur Philibin E Silva">
+// <copyright file="GlobalSupressions.cs">
 //     Copyright (c) Artur Philibin E Silva All rights reserved.
 // </copyright>
 //-------------------------------------------------------------------------

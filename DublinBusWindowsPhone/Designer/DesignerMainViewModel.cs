@@ -1,37 +1,39 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using DublinBusWindowsPhone.ViewModels;
+﻿//-------------------------------------------------------------------------
+// <copyright file="DesignerMainViewModel.cs">
+//     Copyright (c) Artur Philibin E Silva All rights reserved.
+// </copyright>
+//-------------------------------------------------------------------------
 
 namespace DublinBusWindowsPhone.Designer
 {
     using System.Collections.Generic;
     using DublinBusWindowsPhone.Model;
+    using DublinBusWindowsPhone.ViewModels;
 
-    public class DesignerMainViewModel : MainPageViewModel
+    /// <summary>
+    /// Designer version of the 
+    /// <see cref="BusStopRealTimeInformationViewModel"/>, exposes example data
+    /// to help designing views in Design mode
+    /// </summary>
+    public class DesignerMainViewModel : BusStopRealTimeInformationViewModel
     {
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="DesignerMainViewModel"/> class
+        /// </summary>
         public DesignerMainViewModel()
         {
-            var exmapleBusStopArrivalTimes = new List<BusStopArrivalTime>
+            this.BusStopArrivalTimes = new List<BusStopArrivalTime>
             {
                 new BusStopArrivalTime("123", "City center", 0),
-                new BusStopArrivalTime("5", "Liffey Valley Shopping Centre", 7),
+                new BusStopArrivalTime(
+                    "5", "Liffey Valley Shopping Centre", 7),
                 new BusStopArrivalTime("19a", "Place", 17),
-                new BusStopArrivalTime("747b", "Soem place - some other place", 103),
+                new BusStopArrivalTime(
+                    "747b", "Soem place - some other place", 103),
             };
 
-            this.SetValue(MainPageViewModel.ResultsProperty, exmapleBusStopArrivalTimes);
-
-            var exampleBusStopNumber = "98765";
-
-            this.SetValue(MainPageViewModel.SearchStringProperty, exampleBusStopNumber);
+            this.BusStopNumber = "12345";
         }
     }
 }

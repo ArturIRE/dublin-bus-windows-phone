@@ -1,5 +1,5 @@
 ﻿//-------------------------------------------------------------------------
-// <copyright file="SimpleDelegateCommand.cs" company="Artur Philibin E Silva">
+// <copyright file="DelegateCommand.cs">
 //     Copyright (c) Artur Philibin E Silva All rights reserved.
 // </copyright>
 //-------------------------------------------------------------------------
@@ -10,13 +10,13 @@ namespace DublinBusWindowsPhone
     using System.Diagnostics.Contracts;
     using System.Windows.Input;
 
-    public class SimpleDelegateCommand : ICommand
+    public class DelegateCommand : ICommand
     {
         private readonly Action<object> executeAction;
 
         private readonly Func<object, bool> canExecuteFunc;
 
-        public SimpleDelegateCommand(Action<object> execute, Func<object, bool> canExecute)
+        public DelegateCommand(Action<object> execute, Func<object, bool> canExecute)
         {
             Contract.Requires(execute != null);
             Contract.Requires(canExecute != null);
@@ -25,7 +25,7 @@ namespace DublinBusWindowsPhone
             this.canExecuteFunc = canExecute;
         }
 
-        public SimpleDelegateCommand(Action<object> execute)
+        public DelegateCommand(Action<object> execute)
         {
             Contract.Requires(execute != null);
 
