@@ -6,7 +6,11 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:DublinBusWindowsPhone="clr-namespace:DublinBusWindowsPhone" mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    xmlns:viewModels="clr-namespace:DublinBusWindowsPhone.ViewModels"
+    xmlns:designer="clr-namespace:DublinBusWindowsPhone.Designer"
+    mc:Ignorable="d"
+    d:DesignWidth="480"
+    d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -14,8 +18,12 @@
     shell:SystemTray.IsVisible="True">
 
     <Control.DataContext>
-        <DublinBusWindowsPhone:MainPageViewModel/>
+        <viewModels:MainPageViewModel/>
     </Control.DataContext>
+
+    <d:DesignProperties.DataContext>
+        <designer:DesignerMainViewModel/>
+    </d:DesignProperties.DataContext>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -31,7 +39,10 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <Grid x:Name="ContentPanel"
+              Grid.Row="1"
+              Margin="12,0,12,0"
+              Width="Auto">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -43,9 +54,33 @@
                 <Button Content="Check"
                     Command="{Binding SearchAndDownloadData}"/>
             </StackPanel>
-            
-            <TextBlock Grid.Row="1"
-                       Text="{Binding Results}"/>
+
+            <ListBox Grid.Row="1"
+                     ItemsSource="{Binding Results}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Yellow"
+                                BorderThickness="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="32"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Grid.Column="0"
+                                           Text="{Binding RouteNumber}"/>
+                                <TextBlock Grid.Column="1"
+                                           Padding="10, 0"
+                                           Text="{Binding FinalStopName}"/>
+                                <TextBlock Grid.Column="2"
+                                           TextAlignment="Right"
+                                           Text="{Binding MinutesUntilArrival}"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
     </Grid>
  

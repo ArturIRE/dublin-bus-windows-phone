@@ -5,9 +5,8 @@ namespace DublinBusWindowsPhone.Tests.Mocks
     using System;
     using System.Net;
     using System.Reflection;
-    using DublinBusWindowsPhone.Helpers;
 
-    public class MockSimpleWebClient : ISimpleWebClient
+    public class MockSimpleWebClient 
     {
         public void UploadStringAsync(Uri address, string data)
         {

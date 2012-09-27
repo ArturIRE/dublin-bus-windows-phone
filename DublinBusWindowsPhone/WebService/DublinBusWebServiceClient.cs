@@ -4,44 +4,60 @@ namespace DublinBusWindowsPhone.WebService
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
     using System.Xml.Linq;
-    using DublinBusWindowsPhone.Helpers;
     using DublinBusWindowsPhone.Model;
     using Microsoft.Phone.Reactive;
 
     public class DublinBusWebServiceClient
     {
-        private readonly Func<ISimpleWebClient> simpleWebClientFactory;
-
-        public DublinBusWebServiceClient()
-            : this(() => new SimpleWebClient())
+        public IObservable<List<BusStopArrivalTime>> GetBusStopArrivalTimes(int busStopNumber)
         {
+            var wc = new WebClient();
+            wc.Headers[HttpRequestHeader.ContentType] = "text/xml";
+
+            var postEnvelope = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><GetRealTimeStopData xmlns=\"http://dublinbus.ie/\"><stopId>{0}</stopId><forceRefresh>false</forceRefresh></GetRealTimeStopData></soap:Body></soap:Envelope>";
+
+            var o = Observable
+                        .FromEvent<UploadStringCompletedEventArgs>(wc, "UploadStringCompleted")
+                        .ObserveOn(Scheduler.NewThread)
+                        .Select(this.Deserialize)
+                        .ObserveOn(Scheduler.Dispatcher);
+
+            var o2 = Observable.Defer(() => o);
+
+            wc.UploadStringAsync(
+                new Uri("http://webservice.dublinbus.biznetservers.com/DublinBusRTPIService.asmx?op=GetRealTimeStopData"),
+                string.Format(postEnvelope, busStopNumber));
+
+            return o2;
         }
 
-        public DublinBusWebServiceClient(Func<ISimpleWebClient> webClientFactory)
-        {
-            this.simpleWebClientFactory = webClientFactory;
-        }
-
-        public IObservable<List<BusStopArrivalTime>> StartBusStopArrivalTimes()
-        {
-            ISimpleWebClient wc = this.simpleWebClientFactory();
-
-            var o = Observable.FromEvent<UploadStringCompletedEventArgs>(wc, "UploadStringCompleted")
-                              .Select(this.Deserialize)
-                              .ObserveOn(Scheduler.Dispatcher);
-
-            wc.UploadStringAsync(new Uri("http://www.data.com/service"), string.Empty);
-
-            return o;
-        }
-
-        public List<BusStopArrivalTime> Deserialize(IEvent<UploadStringCompletedEventArgs> s)
+        private List<BusStopArrivalTime> Deserialize(IEvent<UploadStringCompletedEventArgs> s)
         {
             var responseData = XDocument.Parse(s.EventArgs.Result);
 
-            return new List<BusStopArrivalTime>();
+            var list = new List<BusStopArrivalTime>();
+
+            foreach (var xmlBusStopArrivaltime in responseData.Descendants("StopData"))
+            {
+                var expectedArrivalTime =
+                    DateTime.Parse(xmlBusStopArrivaltime.Element("MonitoredCall_ExpectedArrivalTime").Value);
+                var currentServerTime =
+                    DateTime.Parse(xmlBusStopArrivaltime.Element("StopMonitoringDelivery_ResponseTimestamp").Value);
+
+                var minutesUntilArrival = Convert.ToInt32(expectedArrivalTime.Subtract(currentServerTime).TotalMinutes);
+
+                list.Add(new BusStopArrivalTime(
+                    xmlBusStopArrivaltime.Element("MonitoredVehicleJourney_PublishedLineName").Value,
+                    xmlBusStopArrivaltime.Element("MonitoredVehicleJourney_DestinationName").Value,
+                    minutesUntilArrival));
+            }
+
+
+
+            return list;
         }
     }
 }

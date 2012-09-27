@@ -3,17 +3,17 @@ namespace DublinBusWindowsPhone.Tests
 {
     using DublinBusWindowsPhone.Tests.Mocks;
     using DublinBusWindowsPhone.WebService;
-    using NUnit.Framework;
+    //using NUnit.Framework;
 
-    [TestFixture]
+    //[TestFixture]
     public class WebServiceTests
     {
-        [Test]
+      //  [Test]
         public void TestDeserialization()
         {
-            var ws = new DublinBusWebServiceClient(() => new MockSimpleWebClient());
+            var ws = new DublinBusWebServiceClient();
 
-            ws.StartBusStopArrivalTimes();
+            //ws.GetBusStopArrivalTimes();
         }
     }
 }

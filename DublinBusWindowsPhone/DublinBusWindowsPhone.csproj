@@ -101,16 +101,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Designer\DesignerMainViewModel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Helpers\ISimpleWebClient.cs" />
-    <Compile Include="Helpers\SimpleWebClient.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPageViewModel.cs" />
     <Compile Include="Model\BusStopArrivalTime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleDelegateCommand.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="WebService\DublinBusWebServiceClient.cs" />
   </ItemGroup>
   <ItemGroup>

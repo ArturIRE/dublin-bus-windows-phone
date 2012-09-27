@@ -4,20 +4,22 @@
 // </copyright>
 //-------------------------------------------------------------------------
 
-namespace DublinBusWindowsPhone
+namespace DublinBusWindowsPhone.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics.Contracts;
-    using System.Globalization;
-    using System.Net;
     using System.Windows;
+    using DublinBusWindowsPhone.Model;
+    using DublinBusWindowsPhone.WebService;
+    using Microsoft.Phone.Reactive;
 
     public class MainPageViewModel : DependencyObject
     {
         private readonly SimpleDelegateCommand searchAndDownloadData;
 
-        public static readonly DependencyProperty ResultsProperty = DependencyProperty.Register("Results", typeof(string), typeof(MainPageViewModel), new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty ResultsProperty = DependencyProperty.Register("Results", typeof(IEnumerable<BusStopArrivalTime>), typeof(MainPageViewModel), new PropertyMetadata(new List<BusStopArrivalTime>()));
 
         public static readonly DependencyProperty SearchStringProperty = DependencyProperty.Register("SearchString", typeof(string), typeof(MainPageViewModel), new PropertyMetadata(string.Empty, (s, e) => ((MainPageViewModel)s).SearchAndDownloadData.RaiseCanExecuteChanged()));
 
@@ -39,11 +41,11 @@ namespace DublinBusWindowsPhone
             }
         }
 
-        public string Results
+        public IEnumerable<BusStopArrivalTime> Results
         {
             get
             {
-                return (string)this.GetValue(ResultsProperty);
+                return (IEnumerable<BusStopArrivalTime>)this.GetValue(ResultsProperty);
             }
 
             set
@@ -69,19 +71,11 @@ namespace DublinBusWindowsPhone
 
         private void SearchAndDownloadDataExecute()
         {
-            var busStopNumber = int.Parse(this.SearchString).ToString(NumberFormatInfo.InvariantInfo).PadLeft(5, '0');
-            var wc = new WebClient();
-            wc.Headers[HttpRequestHeader.ContentType] = "text/xml";
-            wc.UploadStringCompleted += this.WcOnUploadStringCompleted;
-            wc.UploadStringAsync(new Uri("http://webservice.dublinbus.biznetservers.com/DublinBusRTPIService.asmx?op=GetRealTimeStopData"), this.post);
-        }
+            var busStopNumber = int.Parse(this.SearchString);
+            var ws = new DublinBusWebServiceClient();
 
-        private void WcOnUploadStringCompleted(object sender, UploadStringCompletedEventArgs uploadStringCompletedEventArgs)
-        {
-            throw new NotImplementedException();
+            ws.GetBusStopArrivalTimes(busStopNumber).Subscribe(onNext: (s) => { this.Results = s; });
         }
-
-        private string post = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><GetRealTimeStopData xmlns=\"http://dublinbus.ie/\"><stopId>1377</stopId><forceRefresh>false</forceRefresh></GetRealTimeStopData></soap:Body></soap:Envelope>";
 
         public event PropertyChangedEventHandler PropertyChanged;
 

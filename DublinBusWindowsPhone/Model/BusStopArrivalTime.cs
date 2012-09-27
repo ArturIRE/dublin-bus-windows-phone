@@ -21,7 +21,7 @@ namespace DublinBusWindowsPhone.Model
         {
             Contract.Requires(Regex.IsMatch(routeNumber, "[0-9]+[abcdx]?"));
             Contract.Requires(!string.IsNullOrEmpty(finalStopName));
-            Contract.Requires(minutesUntilArrival > 0);
+            Contract.Requires(minutesUntilArrival >= 0);
 
             this.routeNumber = routeNumber;
             this.finalStopName = finalStopName;
@@ -50,7 +50,7 @@ namespace DublinBusWindowsPhone.Model
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() > 0);
+                Contract.Ensures(Contract.Result<int>() >= 0);
                 return this.minutesUntilArrival;
             }
         }
