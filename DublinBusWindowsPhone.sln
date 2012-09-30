@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DublinBusWindowsPhone", "Du
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{01708944-85E8-4287-A70A-B52DA5B1DC35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DublinBusWindowsPhone.Tests", "DublinBusWindowsPhone.Tests\DublinBusWindowsPhone.Tests.csproj", "{A2953991-6ABE-46EB-9434-48F7E826028D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,10 +17,6 @@ Global
 		{02CB49B9-FF65-4803-9425-ADA64FEE1E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02CB49B9-FF65-4803-9425-ADA64FEE1E6A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02CB49B9-FF65-4803-9425-ADA64FEE1E6A}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{A2953991-6ABE-46EB-9434-48F7E826028D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A2953991-6ABE-46EB-9434-48F7E826028D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A2953991-6ABE-46EB-9434-48F7E826028D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A2953991-6ABE-46EB-9434-48F7E826028D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
