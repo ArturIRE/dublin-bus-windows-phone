@@ -8,6 +8,7 @@ namespace DublinBusWindowsPhone.Helpers
 {
     using System;
     using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
     using System.Diagnostics.Contracts;
     using System.Linq.Expressions;
 
@@ -32,6 +33,10 @@ namespace DublinBusWindowsPhone.Helpers
         /// <param name="propertyExpression">
         /// The name of the property that changed as a lambda expression
         /// </param>
+        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "by design")]
+        [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate", Justification = "by design")]
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "by design")]
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "by design")]
         protected void RaisePropertyChanged<T>(
             Expression<Func<T>> propertyExpression)
         {

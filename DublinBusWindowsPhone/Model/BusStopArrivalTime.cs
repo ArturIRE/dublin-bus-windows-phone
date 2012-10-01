@@ -7,7 +7,7 @@
 namespace DublinBusWindowsPhone.Model
 {
     using System.Diagnostics.Contracts;
-    using System.Text.RegularExpressions;
+    using DublinBusWindowsPhone.Helpers;
 
     /// <summary>
     /// Class that represents the a real-time bus stop entry.
@@ -40,7 +40,8 @@ namespace DublinBusWindowsPhone.Model
         public BusStopArrivalTime(
             string routeNumber, string finalStopName, int minutesUntilArrival)
         {
-            Contract.Requires(Regex.IsMatch(routeNumber, "[0-9]+[abcdx]?"));
+            Contract.Requires(routeNumber != null);
+            Contract.Requires(routeNumber.IsMatch("[0-9]+[abcdx]?"));
             Contract.Requires(!string.IsNullOrEmpty(finalStopName));
             Contract.Requires(minutesUntilArrival >= 0);
 
@@ -54,8 +55,7 @@ namespace DublinBusWindowsPhone.Model
         {
             get
             {
-                Contract.Ensures(Regex.IsMatch(
-                    Contract.Result<string>(), "[0-9]+[abcdx]?"));
+                Contract.Ensures(Contract.Result<string>().IsMatch("[0-9]+[abcdx]?"));
                 return this.routeNumber;
             }
         }

@@ -7,13 +7,14 @@
 namespace DublinBusWindowsPhone.ViewModels
 {
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Windows;
     using System.Windows.Input;
     using DublinBusWindowsPhone.Helpers;
     using DublinBusWindowsPhone.Model;
+    using DublinBusWindowsPhone.Services.Web;
     using DublinBusWindowsPhone.Views;
-    using DublinBusWindowsPhone.WebService;
     using Microsoft.Phone.Reactive;
 
     /// <summary>
@@ -86,7 +87,7 @@ namespace DublinBusWindowsPhone.ViewModels
                 return this.busStopArrivalTimes;
             }
 
-            set
+            protected set
             {
                 if (value != this.busStopArrivalTimes)
                 {
@@ -129,7 +130,7 @@ namespace DublinBusWindowsPhone.ViewModels
         {
             var ws = new DublinBusWebServiceClient();
 
-            ws.GetBusStopArrivalTimes(int.Parse(this.busStopNumber))
+            ws.GetBusStopArrivalTimes(int.Parse(this.busStopNumber, CultureInfo.CurrentCulture))
               .Subscribe(s => { this.BusStopArrivalTimes = s; });
         }
     }
