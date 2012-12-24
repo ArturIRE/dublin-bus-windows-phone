@@ -43,7 +43,7 @@ namespace DublinBusWindowsPhone.Services.Web
             var o = Observable
                         .FromEvent<UploadStringCompletedEventArgs>(wc, "UploadStringCompleted")
                         .ObserveOn(Scheduler.NewThread)
-                        .Select(r => new Deserializer().DeserializeBusStopArrivalTimes(XDocument.Load(r.EventArgs.Result)))
+                        .Select(r => new Deserializer().DeserializeBusStopArrivalTimes(XDocument.Parse(r.EventArgs.Result)))
                         .ObserveOn(Scheduler.Dispatcher);
 
             var o2 = Observable.Defer(() => o);

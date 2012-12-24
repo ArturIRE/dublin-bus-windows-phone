@@ -33,12 +33,12 @@
             <Button Content="Check"
                     Command="{Binding SearchForRealTimeData}"/>
         </StackPanel>
-
-        <ListBox Grid.Row="1"
+        
+        <ListBox Grid.Row="1" HorizontalContentAlignment="Stretch"
                  ItemsSource="{Binding BusStopArrivalTimes}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Yellow"
+                    <Border HorizontalAlignment="Stretch" BorderBrush="Yellow"
                             BorderThickness="3">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -61,6 +61,12 @@
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+            
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
         </ListBox>
     </Grid>
 </UserControl>

@@ -94,6 +94,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="mscorlib.extensions" />
+    <Reference Include="System.Windows.Interactivity, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -102,6 +103,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Designer\DesignerMainViewModel.cs" />
+    <Compile Include="EmptyTemplateBehavior.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\CodeContractsHelpers.cs" />
     <Compile Include="Helpers\ViewModelBase.cs" />

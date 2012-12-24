@@ -42,12 +42,7 @@ namespace DublinBusWindowsPhone.Services.Serializer
                 Contract.Result<ReadOnlyCollection<BusStopArrivalTime>>() != null);
 
             var list = new List<BusStopArrivalTime>();
-
-// ReSharper disable PossibleNullReferenceException
-// ReSharper disable LoopCanBeConvertedToQuery
             foreach (var xmlBusStopArrivaltime in document.Descendants("StopData"))
-// ReSharper restore LoopCanBeConvertedToQuery
-// ReSharper restore PossibleNullReferenceException
             {
                 var routeNumber = GetValue(
                     xmlBusStopArrivaltime,
@@ -93,9 +88,7 @@ namespace DublinBusWindowsPhone.Services.Serializer
             Contract.Requires(xmlBusStopArrivaltime != null);
             Contract.Requires(!string.IsNullOrEmpty(name));
 
-// ReSharper disable PossibleNullReferenceException
             var element = xmlBusStopArrivaltime.Element(name);
-// ReSharper restore PossibleNullReferenceException
             if (element == null)
             {
                 throw new DeserializationException(string.Format(
