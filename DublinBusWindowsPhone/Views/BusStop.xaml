@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="DublinBusWindowsPhone.Views.BusStopRealTimeInformationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:designer="clr-namespace:DublinBusWindowsPhone.Designer"
+             xmlns:viewModels="clr-namespace:DublinBusWindowsPhone.ViewModels"
+             mc:Ignorable="d"
+             FontFamily="{StaticResource PhoneFontFamilyNormal}"
+             FontSize="{StaticResource PhoneFontSizeNormal}"
+             Foreground="{StaticResource PhoneForegroundBrush}"
+             d:DesignHeight="480"
+             d:DesignWidth="480">
+
+    <Control.DataContext>
+        <viewModels:BusStopRealTimeInformationViewModel/>
+    </Control.DataContext>
+
+    <d:DesignProperties.DataContext>
+        <designer:DesignerMainViewModel/>
+    </d:DesignProperties.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Orientation="Vertical">
+            <TextBox InputScope="Digits"
+                     Text="{Binding BusStopNumber, Mode=TwoWay}"/>
+            <Button Content="Check"
+                    Command="{Binding SearchForRealTimeData}"/>
+        </StackPanel>
+        
+        <ListBox Grid.Row="1" HorizontalContentAlignment="Stretch"
+                 ItemsSource="{Binding BusStopArrivalTimes}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border HorizontalAlignment="Stretch" BorderBrush="Yellow"
+                            BorderThickness="3">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="32"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"
+                                        Text="{Binding RouteNumber}"/>
+                            
+                            <TextBlock Grid.Column="1"
+                                        Padding="10, 0"
+                                        Text="{Binding FinalStopName}"/>
+                            
+                            <TextBlock Grid.Column="2"
+                                       TextAlignment="Right"
+                                       Text="{Binding MinutesUntilArrival}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+    </Grid>
+</UserControl>
