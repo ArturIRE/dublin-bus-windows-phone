@@ -4,7 +4,7 @@
 // </copyright>
 //-------------------------------------------------------------------------
 
-namespace DublinBusWindowsPhone.ViewModels
+namespace DublinBusWindowsPhone
 {
     using System.Collections.Generic;
     using System.Globalization;

@@ -9,22 +9,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
+using DublinBusWindowsPhone.ViewModels;
 
 namespace DublinBusWindowsPhone.Views
 {
-    public partial class BusStop : UserControl
+    public partial class BusStopTimes : PhoneApplicationPage
     {
-        public BusStop()
+        public BusStopTimes()
         {
             InitializeComponent();
         }
 
-        private void GoToTimesPage(object sender, RoutedEventArgs e)
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            var url = string.Format("/Views/BusStopTimes.xaml?stopNumber={0}", this.BusStopNumber.Text);
-            ((PhoneApplicationFrame)Application.Current.RootVisual).Navigate(new Uri(url, UriKind.Relative));
+            base.OnNavigatedTo(e);
+            ((BusStopTimesViewModel)this.DataContext).LoadBusStopTimes(NavigationContext.QueryString["stopNumber"]);
         }
     }
 }

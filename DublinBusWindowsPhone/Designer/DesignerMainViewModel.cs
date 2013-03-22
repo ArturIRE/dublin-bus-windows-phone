@@ -4,7 +4,7 @@
 // </copyright>
 //-------------------------------------------------------------------------
 
-namespace DublinBusWindowsPhone.Designer
+namespace DublinBusWindowsPhone
 {
     using System.Collections.Generic;
     using DublinBusWindowsPhone.Model;
@@ -33,7 +33,7 @@ namespace DublinBusWindowsPhone.Designer
                     "747b", "Soem place - some other place", 103),
             };
 
-            this.BusStopNumber = "12345";
+            this.BusStopNumber = "1377";
         }
     }
 }

@@ -11,25 +11,32 @@ using System.Windows.Shapes;
 using DublinBusWindowsPhone.Helpers;
 using System.IO.IsolatedStorage;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace DublinBusWindowsPhone.ViewModels
 {
     public class FavouriteStopsViewModel : ViewModelBase
     {
-        private readonly ObservableCollection<int> favouriteStops;
+        private ObservableCollection<string> favouriteStops;
 
         public FavouriteStopsViewModel()
         {
-            this.favouriteStops = new ObservableCollection<int>();
+            this.favouriteStops = new ObservableCollection<string>();
+            this.LoadFavourites();
         }
 
         private void LoadFavourites()
         {
+            if (DesignerProperties.IsInDesignTool)
+            {
+                return;
+            }
+
             var storage = IsolatedStorageSettings.ApplicationSettings;
 
             var stops = storage.Contains("FavouriteStops")
-                ? (int[])storage["FavouriteStops"] 
-                : new int[] { };
+                ? (string[])storage["FavouriteStops"]
+                : new string[] { };
 
             foreach (var stop in stops)
             {
@@ -37,11 +44,17 @@ namespace DublinBusWindowsPhone.ViewModels
             }
         }
 
-        public ObservableCollection<int> FavouriteStops 
+        public ObservableCollection<string> FavouriteStops 
         {
             get
             {
                 return this.favouriteStops;
+            }
+
+            protected set
+            {
+                this.favouriteStops = value;
+                this.RaisePropertyChanged(() => this.FavouriteStops);
             }
         }
     }

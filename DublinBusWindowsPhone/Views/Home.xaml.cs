@@ -9,17 +9,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 
 namespace DublinBusWindowsPhone.Views
 {
-    public partial class BusStop : UserControl
+    public partial class Home : PhoneApplicationPage
     {
-        public BusStop()
+        public Home()
         {
             InitializeComponent();
         }
+
 
         private void GoToTimesPage(object sender, RoutedEventArgs e)
         {
