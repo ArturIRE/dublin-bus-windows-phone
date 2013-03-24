@@ -19,7 +19,7 @@
     Orientation="Portrait"
     shell:SystemTray.IsVisible="True"
     d:DataContext="{d:DesignInstance Type=designer:HomeDesigner, IsDesignTimeCreatable=True}">
-    
+
     <phone:PhoneApplicationPage.DataContext>
         <viewModel:HomeViewModel/>
     </phone:PhoneApplicationPage.DataContext>
@@ -30,47 +30,35 @@
         <controls:Pivot Title="MY APPLICATION">
             <!--Pivot item one-->
             <controls:PivotItem Header="Bus Stops">
-                
+
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Background="Orange" Margin="20">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="2*"/>
-                        </Grid.RowDefinitions>
-
-                        <TextBox x:Name="BusStopNumber"
+                    <TextBox x:Name="BusStopNumber"
                                  Padding="0"
                                  Margin="0"
                            Grid.Row="0"
-                           Text="{Binding BusStopNumber}"
+                           Text="{Binding BusStopNumber, Mode=TwoWay, FallbackValue=Search...}"
                            FontSize="{StaticResource PhoneFontSizeLarge}"/>
 
-                        <Button Grid.Row="1"
-                                Click="GoToTimesPage"
-                           Content="Search"
-                           FontSize="{StaticResource PhoneFontSizeNormal}"/>
-                    </Grid>
-                
-                <ListBox Grid.Row="1" ItemsSource="{Binding BusStops}">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <toolkit:WrapPanel />
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <view:BusStop Height="200"
+                    <ListBox Grid.Row="1" ItemsSource="{Binding BusStops}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <toolkit:WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <view:BusStop Height="200"
                                           Width="200"
                                           DataContext="{Binding}"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </controls:PivotItem>
 
@@ -92,5 +80,5 @@
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>-->
-    
+
 </phone:PhoneApplicationPage>

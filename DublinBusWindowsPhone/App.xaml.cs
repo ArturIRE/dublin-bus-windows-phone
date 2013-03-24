@@ -8,12 +8,14 @@ namespace DublinBusWindowsPhone
 {
     using System.Windows;
     using System.Windows.Navigation;
-
     using Microsoft.Phone.Controls;
     using Microsoft.Phone.Shell;
+    using DublinBusWindowsPhone.Services;
 
     public partial class App : Application
     {
+        public static App DublinBusApp { get; private set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="App"/> class
         /// </summary>
@@ -35,11 +37,11 @@ namespace DublinBusWindowsPhone
                 Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
                 // Show the areas of the app that are being redrawn in each frame.
-                //Application.Current.Host.Settings.EnableRedrawRegions = true;
+                Application.Current.Host.Settings.EnableRedrawRegions = true;
 
                 // Enable non-production analysis visualization mode, 
                 // which shows areas of a page that are handed off to GPU with a colored overlay.
-                //Application.Current.Host.Settings.EnableCacheVisualization = true;
+                Application.Current.Host.Settings.EnableCacheVisualization = true;
 
                 // Disable the application idle detection by setting the UserIdleDetectionMode property of the
                 // application's PhoneApplicationService object to Disabled.
@@ -47,7 +49,6 @@ namespace DublinBusWindowsPhone
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
-
         }
 
         /// <summary>
@@ -56,11 +57,17 @@ namespace DublinBusWindowsPhone
         /// <returns>The root frame of the Phone Application.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
 
+        /// <summary>
+        /// Gets access to the repository used to retrieve model objects
+        /// </summary>
+        public Repository Repository { get; private set; }
+
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         private void ApplicationLaunching(object sender, LaunchingEventArgs e)
         {
+            App.DublinBusApp = this;
         }
 
         // Code to execute when the application is activated (brought to foreground)

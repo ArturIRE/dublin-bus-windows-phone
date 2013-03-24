@@ -28,9 +28,7 @@ namespace DublinBusWindowsPhone.Helpers
             Contract.Requires(value != null);
             Contract.Requires(pattern != null);
 
-// ReSharper disable AssignNullToNotNullAttribute
             return Regex.IsMatch(value, pattern);
-// ReSharper restore AssignNullToNotNullAttribute
         }
     }
 }

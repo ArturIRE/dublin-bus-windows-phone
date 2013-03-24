@@ -11,12 +11,16 @@
     d:DesignHeight="200" d:DesignWidth="200"
     d:DataContext="{d:DesignInstance Type=designer:DesignerBusStop, IsDesignTimeCreatable=True}">
     
-        <Button Background="Orange"
-                Padding="10"
+        <Button Padding="10"
                 Margin="0"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
                 Click="GoToTimesPage">
+            
+        <Button.Background>
+            <SolidColorBrush Color="{Binding Color}" />
+        </Button.Background>
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>

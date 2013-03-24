@@ -12,6 +12,7 @@ using DublinBusWindowsPhone.Helpers;
 using System.Collections.ObjectModel;
 using DublinBusWindowsPhone.Model;
 using Microsoft.Phone.Reactive;
+using DublinBusWindowsPhone.Services;
 
 namespace DublinBusWindowsPhone.ViewModels
 {
@@ -21,6 +22,9 @@ namespace DublinBusWindowsPhone.ViewModels
 
         public void LoadBusStopTimes(string busStopNumber)
         {
+            var x = new BusStopViewModel { BusStopNumber = busStopNumber };
+            var f = new Repository();
+            f.Save(x);
             var wc = new DublinBusWindowsPhone.Services.Web.DublinBusWebServiceClient();
             var obs = wc.GetBusStopArrivalTimes(int.Parse(busStopNumber));
             obs.Subscribe(times => this.ArrivalTimes = new ObservableCollection<BusStopArrivalTime>(times));

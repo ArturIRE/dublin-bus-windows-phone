@@ -49,5 +49,14 @@ namespace DublinBusWindowsPhone.ViewModels
                 this.RaisePropertyChanged(() => BusStopNumber);
             }
         }
+
+        public Color Color
+        {
+            get
+            {
+                Random rnd = new Random();
+                return Color.FromArgb((byte)rnd.Next(255), (byte)rnd.Next(255), (byte)rnd.Next(255), (byte)rnd.Next(255));
+            }
+        }
     }
 }

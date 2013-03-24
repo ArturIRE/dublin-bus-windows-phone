@@ -15,6 +15,13 @@ namespace DublinBusWindowsPhone.Services.Web
     using DublinBusWindowsPhone.Model;
     using DublinBusWindowsPhone.Services.Serializer;
     using Microsoft.Phone.Reactive;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using System.IO;
+    using System.Xml;
+    using Generated;
+    using System.ServiceModel.Channels;
+    using System.ServiceModel;
 
     /// <summary>
     /// Web service client for the Dublin bus real time web service
@@ -54,5 +61,22 @@ namespace DublinBusWindowsPhone.Services.Web
 
             return o2;
         }
+
+        public IObservable<Destination[]> GetAllStops()
+        {
+            return Observable.Defer(() =>
+                {
+                    var x = new Generated.DublinBusRTPIServiceSoapClient(new BasicHttpBinding() { MaxBufferSize=2147483647,
+                    MaxReceivedMessageSize=2147483647 }, new EndpointAddress(new Uri("http://rtpi.dublinbus.biznetservers.com/DublinBusRTPIService.asmx")));
+
+                    var o = Observable.FromEvent<GetAllDestinationsCompletedEventArgs>(x, "GetAllDestinationsCompleted")
+                        .Select(res => res.EventArgs.Result.Destinations);
+
+                    x.GetAllDestinationsAsync();
+
+                    return o;
+                });
+        }
+
     }
 }

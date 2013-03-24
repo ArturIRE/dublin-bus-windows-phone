@@ -12,18 +12,52 @@ using DublinBusWindowsPhone.Helpers;
 using System.Collections.ObjectModel;
 using System.IO.IsolatedStorage;
 using DublinBusWindowsPhone.Services;
+using Microsoft.Phone.Reactive;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace DublinBusWindowsPhone.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
-        public HomeViewModel()
+        public HomeViewModel(Repository repo)
         {
-            //var repo = new Repository();
-            //this.BusStops = new ObservableCollection<BusStopViewModel>(repo.GetAllKnownBusStops());
+            this.BusStops = new ObservableCollection<BusStopViewModel>();
+
+            var repo = new Repository();
+            this.BusStops = new ObservableCollection<BusStopViewModel>(repo.GetAllKnownBusStops());
         }
 
-        public ObservableCollection<BusStopViewModel> BusStops
-        { get; set; }
+        private string busStopnumber;
+
+        public string BusStopNumber
+        {
+            get
+            {
+                return this.busStopnumber;
+            }
+
+            set
+            {
+                this.busStopnumber = value;
+                this.RaisePropertyChanged(() => this.BusStopNumber);
+            }
+        }
+
+        private IEnumerable<BusStopViewModel> busStops;
+
+        public IEnumerable<BusStopViewModel> BusStops
+        {
+            get
+            {
+                return this.busStops;
+            }
+
+            set
+            {
+                this.busStops = value;
+                this.RaisePropertyChanged(() => this.BusStops);
+            }
+        }
     }
 }
